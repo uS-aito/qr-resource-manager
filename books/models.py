@@ -7,10 +7,10 @@ import os.path
 class Resource(models.Model):
     """
     リソースのモデル
-    resource_name: リソース名(str: 200文字以内)
-    resource_image: リソースイメージ
-    resource_checkout_date: リソース貸出日
-    resource_return_date: リソース返却日
+    name: リソース名(str: 200文字以内)
+    image: リソースイメージ
+    checkout_date: リソース貸出日
+    return_date: リソース返却日
     """
     def get_image_path(self, filename):
         """
@@ -42,7 +42,7 @@ class Resource(models.Model):
 
             # 保存前のファイルがあったら削除
             if previous:
-                os.remove(settings.MEDIA_ROOT + '/' + previous.resource_image.name)
+                os.remove(settings.MEDIA_ROOT + '/' + previous.image.name)
             return result
         return wrapper
 
@@ -55,13 +55,13 @@ class Resource(models.Model):
         super(Resource, self).delete()
     
     def __str__(self):
-        return self.resource_name
+        return self.name
 
-    resource_name = models.CharField(max_length=200)
-    resource_image = models.ImageField(upload_to=get_image_path)
-    resource_description = models.TextField(blank=True, null=True)
-    resource_checkout_date = models.DateField(blank=True, null=True)
-    resource_return_date = models.DateField(blank=True, null=True)
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=get_image_path)
+    description = models.TextField(blank=True, null=True)
+    checkout_date = models.DateField(blank=True, null=True)
+    return_date = models.DateField(blank=True, null=True)
 
 class Book(Resource):
     pass

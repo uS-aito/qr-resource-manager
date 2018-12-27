@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 import os
+import django_filters
+from rest_framework import viewsets, filters
+
+from .models import Book
+from .serializer import BookSerializer
 
 # Create your views here.
 def index(request):
@@ -16,3 +21,8 @@ def reserve(request, resource_id):
 
 def release(request, resource_id):
     return HttpResponse("リソース {} の予約解放ページ".format(resource_id))
+
+# REST Framework Viewset
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
