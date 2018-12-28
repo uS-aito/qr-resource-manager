@@ -10,7 +10,11 @@ from .serializer import BookSerializer
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, World.")
+    books = Book.objects.all().order_by('id')
+    context = {
+        "books": books
+    }
+    return render(request, "books/resources.html", context)
 
 def info(request, resource_id):
     return HttpResponse(("リソース {} のページ。QRコードを読み込むとまずここにアクセスする <br>このページにはリソースの詳細(外観、性能、名前、予約状況等)を表示し、予約ボタンや詳細閲覧ボタン等を置く").format(resource_id))

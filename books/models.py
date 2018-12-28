@@ -39,9 +39,9 @@ class Resource(models.Model):
 
             # 関数実行
             result = function(*args, **kwargs)
-
+            
             # 保存前のファイルがあったら削除
-            if previous:
+            if os.path.exists(previous.image.path):
                 os.remove(settings.MEDIA_ROOT + '/' + previous.image.name)
             return result
         return wrapper

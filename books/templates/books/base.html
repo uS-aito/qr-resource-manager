@@ -1,0 +1,27 @@
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang='{{ LANGUAGE_CODE|default:"en-us" }}'>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}">
+{% block extra_css %}{% endblock %}
+<title>{% block title %}My books{% endblock %}</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/resources">Home</a>
+    </div>
+  </nav>  
+  <div class="container">
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </div>
+<script src="{% static 'books/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'books/js/bootstrap.bundle.min.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
