@@ -7,7 +7,7 @@
     <div class="page-header">
         <h1 style="padding: 60px;">利用可能な書籍の一覧</h1>
     </div>
-    <table class="table table-striped table-bordered">
+    <!-- <table class="table table-striped table-bordered">
         <thead>
             <tr>
             <th scope="col">イメージ</th>
@@ -31,26 +31,19 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
-    <!-- {% for book in books %}
-        <p> {{ book.id }} </p>
-        <p> {{ book.name }} </p>
-        <p> {{ book.description }} </p>
-        <p> {{ book.image.url }} </p>
-        <p> {{ book.checkout_date }} </p>
-        <p> {{ book.return_date }} </p>
-    {% endfor %} -->
-    
-    <!-- {% for book in books %}
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src={{ book.image.url }} alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{ book.name }}</h5>
-                <p class="card-text">{{ book.description }}</p>
-                <p class="card-text">貸し出し日: {{ book.checkout_date }}</p>
-                <p class="card-text">返却予定日: {{ book.return_date }}</p>
+    </table> -->
+    {% for book in books %}
+        <div class="card" style="width: 15rem;">
+            <img class="card-img-top" src={{ book.image.url }} alt="Book Image">
+            <div class="card-body-mod">
+                <h6 class="card-title-mod">{{ book.name }}</h5>
             </div>
+            {% if book.checkout_date == None %}
+                <p class="available">貸出可</p>
+            {% else %}
+                <p class="unavailable">貸出不可</p>
+            {% endif %}
         </div>
-    {% endfor %} -->
+    {% endfor %}
           
 {% endblock content %}

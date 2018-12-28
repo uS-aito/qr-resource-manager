@@ -31,17 +31,17 @@ class Resource(models.Model):
         """
         def wrapper(*args, **kwargs):
             self = args[0]
-
             # 保存前のファイル名を取得
             result = Resource.objects.filter(pk=self.pk)
             previous = result[0] if len(result) else None
+            before = previous.image.name
             super(Resource, self).save()
 
             # 関数実行
             result = function(*args, **kwargs)
             
-            # 保存前のファイルがあったら削除
-            if os.path.exists(previous.image.path):
+            # 保存前のファイルがあり、かつ画像ファイルが新しくアップロードされていたら削除
+            if os.path.exists(previous.image.path) and not before == self.image.name:
                 os.remove(settings.MEDIA_ROOT + '/' + previous.image.name)
             return result
         return wrapper
