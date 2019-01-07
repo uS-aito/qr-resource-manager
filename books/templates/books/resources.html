@@ -38,7 +38,7 @@
                 <div class="card">
                     <img class="card-img-top" src={{ book.image.url }} alt="Book Image">
                     <div class="card-body-mod">
-                        <h6 class="card-title-mod">{{ book.name }}</h5>
+                        <a href="./detail/{{ book.id }}"><h6 class="card-title-mod">{{ book.name }}</h6></a>
                     </div>
                     {% if book.checkout_date == None %}
                         <p class="available">貸出可</p>
