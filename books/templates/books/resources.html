@@ -32,18 +32,22 @@
             {% endfor %}
         </tbody>
     </table> -->
-    {% for book in books %}
-        <div class="card" style="width: 15rem;">
-            <img class="card-img-top" src={{ book.image.url }} alt="Book Image">
-            <div class="card-body-mod">
-                <h6 class="card-title-mod">{{ book.name }}</h5>
+    <div class="row">
+        {% for book in books %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <img class="card-img-top" src={{ book.image.url }} alt="Book Image">
+                    <div class="card-body-mod">
+                        <h6 class="card-title-mod">{{ book.name }}</h5>
+                    </div>
+                    {% if book.checkout_date == None %}
+                        <p class="available">貸出可</p>
+                    {% else %}
+                        <p class="unavailable">貸出不可</p>
+                    {% endif %}
+                </div>
             </div>
-            {% if book.checkout_date == None %}
-                <p class="available">貸出可</p>
-            {% else %}
-                <p class="unavailable">貸出不可</p>
-            {% endif %}
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
           
 {% endblock content %}

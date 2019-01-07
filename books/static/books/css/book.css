@@ -1,6 +1,7 @@
 .available {
     padding: 0.5em 1em;
-    margin: 0.3rem 0.6rem 0.6rem 0.6rem;
+    margin-left: 5%;
+    margin-right: auto;
     font-weight: bold;
     color: #6091d3;
     background: #FFF;
@@ -12,13 +13,15 @@
 
 .unavailable {
     padding: 0.5em 1em;
-    margin: 0.3rem 0.6rem 0.6rem 7.8rem;
+    /* margin: 0.3rem 0.6rem 0.6rem 7.8rem; */
+    margin-right: 5%;
+    margin-left: auto;
     font-weight: bold;
     color: #ff7d6e;
     background: #FFF;
     border: solid 3px #ff7d6e;
     border-radius: 10px;
-    width: 6.6rem;
+    width: 7rem;
     text-align: center;
 }
 
