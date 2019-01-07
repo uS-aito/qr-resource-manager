@@ -1,0 +1,29 @@
+{% extends "books/base.html" %}
+
+{% block title %}書籍の詳細{% endblock title %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1 style="padding: 60px;">書籍詳細</h1>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card">
+            <img class="card-img-top card-img-size" src={{ book.image.url }} alt="Book Image">
+            <div class="card-body-mod">
+                <h5 class="card-title-mod">{{ book.name }}</h5>
+            </div>
+            <p>{{ book.description }}</p>
+            <p>貸し出し日: {{ book.checkout_date }}</p>
+            <p>返却予定日: {{ book.return_date }}
+            </p>
+            {% if book.checkout_date == None %}
+                <p class="available">貸出可</p>
+            {% else %}
+                <p class="unavailable">貸出不可</p>
+            {% endif %}
+        </div>
+    </div>
+          
+{% endblock content %}

@@ -34,3 +34,8 @@
 .card-title-mod {
     margin-bottom: 0rem;
 }
+
+.card-img-size {
+    max-width: 30vw;
+    margin: auto;
+}

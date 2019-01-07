@@ -28,8 +28,9 @@ def release(request, resource_id):
 
 def detail(request, resource_id):
     book = Book.objects.get(id=resource_id)
-    context = book
-    import pdb; pdb.set_trace()
+    context = {
+        "book": book
+    }
     return render(request, "books/detail.html", context)
 
 # REST Framework Viewset
