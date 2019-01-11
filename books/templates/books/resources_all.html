@@ -1,0 +1,31 @@
+{% extends "books/base.html" %}
+
+{% block title %}リソースの一覧{% endblock title %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1 style="padding: 60px;">利用可能なリソースの一覧</h1>
+    </div>
+
+    {% for resources in resources_all %}
+        <div class="row">
+            {% for resource in resources %}
+                <div class="col-sm-3">
+                    <div class="card">
+                        <img class="card-img-top" src={{ resource.image.url }} alt="resource Image">
+                        <div class="card-body-mod">
+                            <a href="./detail/{{ resource.id }}"><h6 class="card-title-mod">{{ resource.name }}</h6></a>
+                        </div>
+                        {% if resource.checkout_date == None %}
+                            <p class="available">貸出可</p>
+                        {% else %}
+                            <p class="unavailable">貸出不可</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+          
+{% endblock content %}

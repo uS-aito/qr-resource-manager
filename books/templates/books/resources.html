@@ -1,22 +1,22 @@
 {% extends "books/base.html" %}
 
-{% block title %}書籍の一覧{% endblock title %}
+{% block title %}リソースの一覧{% endblock title %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1 style="padding: 60px;">利用可能な書籍の一覧</h1>
+        <h1 style="padding: 60px;">利用可能なリソースの一覧</h1>
     </div>
 
     <div class="row">
-        {% for book in books %}
+        {% for resource in resources %}
             <div class="col-sm-3">
                 <div class="card">
-                    <img class="card-img-top" src={{ book.image.url }} alt="Book Image">
+                    <img class="card-img-top" src={{ resource.image.url }} alt="resource Image">
                     <div class="card-body-mod">
-                        <a href="./detail/{{ book.id }}"><h6 class="card-title-mod">{{ book.name }}</h6></a>
+                        <a href="./detail/{{ resource.id }}"><h6 class="card-title-mod">{{ resource.name }}</h6></a>
                     </div>
-                    {% if book.checkout_date == None %}
+                    {% if resource.checkout_date == None %}
                         <p class="available">貸出可</p>
                     {% else %}
                         <p class="unavailable">貸出不可</p>

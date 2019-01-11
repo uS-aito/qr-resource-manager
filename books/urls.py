@@ -11,6 +11,7 @@ router.register(r"books", BookViewSet)
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("<str:resource_type>/", views.index, name="index"),
     path("<int:resource_id>/", views.info, name="info"),
     path("detail/<int:resource_id>", views.detail, name="detail"),
     path("api/", include(router.urls)),
