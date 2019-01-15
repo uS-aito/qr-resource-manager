@@ -4,10 +4,11 @@ from django.conf.urls.static import static
 from . import views
 
 from rest_framework import routers
-from .views import BookViewSet
+from .views import BookViewSet, MonitorViewSet
 
 router = routers.DefaultRouter()
 router.register(r"books", BookViewSet)
+router.register(r"monitors", MonitorViewSet)
 
 urlpatterns = [
     path("", views.index, name="index"),

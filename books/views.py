@@ -5,8 +5,8 @@ import os
 import django_filters
 from rest_framework import viewsets, filters
 
-from .models import Book
-from .serializer import BookSerializer
+from .models import Book, Monitor
+from .serializer import BookSerializer, MonitorSerializer
 
 # Create your views here.
 def index(request, **kwargs):
@@ -56,3 +56,7 @@ def detail(request, **kwargs):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+class MonitorViewSet(viewsets.ModelViewSet):
+    queryset = Monitor.objects.all()
+    serializer_class = MonitorSerializer
