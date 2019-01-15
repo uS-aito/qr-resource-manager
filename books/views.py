@@ -40,10 +40,15 @@ def index(request, **kwargs):
         }
         return render(request, "books/resources_all.html", context)
 
-def detail(request, resource_id):
-    book = Book.objects.get(id=resource_id)
+def detail(request, **kwargs):
+    # 動的なクラス読み込み
+    mod = __import__("books.models", globals(), locals(), [kwargs["resource_type"]], 0)
+    resource_class = getattr(mod, kwargs["resource_type"])
+    # そのクラスのレコードをDBから読み込み
+    resource = resource_class.objects.get(id=kwargs["resource_id"])
+
     context = {
-        "book": book
+        "resource": resource
     }
     return render(request, "books/detail.html", context)
 
