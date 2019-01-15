@@ -35,21 +35,10 @@ def index(request, **kwargs):
             attr = getattr(mod.models, name)
             if "django.db.models.base.ModelBase" in str(type(attr)):               
                 resources_all.append(attr.objects.all().order_by('id'))
-        import pdb; pdb.set_trace()
         context = {
             "resources_all": resources_all
         }
         return render(request, "books/resources_all.html", context)
-
-def info(request, resource_id):
-    return HttpResponse(("リソース {} のページ。QRコードを読み込むとまずここにアクセスする <br>このページにはリソースの詳細(外観、性能、名前、予約状況等)を表示し、予約ボタンや詳細閲覧ボタン等を置く").format(resource_id))
-
-def reserve(request, resource_id):
-    response = "リソース {} の予約完了ページ。".format(resource_id)
-    return HttpResponse(response)
-
-def release(request, resource_id):
-    return HttpResponse("リソース {} の予約解放ページ".format(resource_id))
 
 def detail(request, resource_id):
     book = Book.objects.get(id=resource_id)

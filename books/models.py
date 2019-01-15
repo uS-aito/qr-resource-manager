@@ -30,18 +30,31 @@ class Resource(models.Model):
         :return: wrapper
         """
         def wrapper(*args, **kwargs):
+            def need_delete_image(previous):
+                # 以前のファイルが存在するか
+                if not previous == None:
+                    if "path" in previous.image.__dict__.keys():
+                        if os.path.exists(previous.image.path):
+                            # 以前のファイルと新しいファイルが同一ではないか(要するに画像の変更なし)
+                            if not previous.image.name == self.image.name:
+                                return True
+                return False
+
             self = args[0]
             # 保存前のファイル名を取得
             result = Resource.objects.filter(pk=self.pk)
-            previous = result[0] if len(result) else None
-            before = previous.image.name
-            super(Resource, self).save()
+            if len(result):
+                previous = result[0]
+                before = previous.image.name
+                super(Resource, self).save()
+            else:
+                previous = None
 
             # 関数実行
             result = function(*args, **kwargs)
             
             # 保存前のファイルがあり、かつ画像ファイルが新しくアップロードされていたら削除
-            if os.path.exists(previous.image.path) and not before == self.image.name:
+            if need_delete_image(previous):
                 os.remove(settings.MEDIA_ROOT + '/' + previous.image.name)
             return result
         return wrapper
@@ -58,10 +71,13 @@ class Resource(models.Model):
         return self.name
 
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=get_image_path)
+    image = models.ImageField(upload_to=get_image_path, blank=True, null=True, default=settings.IMAGE_URL + 'no_image.png')
     description = models.TextField(blank=True, null=True)
     checkout_date = models.DateField(blank=True, null=True)
     return_date = models.DateField(blank=True, null=True)
 
 class Book(Resource):
+    pass
+
+class Monitor(Resource):
     pass

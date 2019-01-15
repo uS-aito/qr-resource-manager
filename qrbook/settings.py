@@ -125,3 +125,4 @@ STATIC_URL = '/static/'
 # https://qiita.com/kojionilk/items/da20c732642ee7377a78
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+IMAGE_URL = "/images/"
