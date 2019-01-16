@@ -17,20 +17,25 @@
                 <p>貸し出し日: {{ resource.checkout_date }}</p>
                 <p>返却予定日: {{ resource.return_date }}
                 </p>
-                {% if resource.checkout_date == None %}
+                {% if is_rentaling == True %}
+                    <p class="unavailable">貸出不可</p>
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#returnNormalModal">
+                        返却する
+                    </button>
+                {% elif resource.checkout_date == None %}
                     <p class="available">貸出可</p>
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#demoNormalModal">
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#checkoutNormalModal">
                         借りる
                     </button>
                 {% else %}
                     <p class="unavailable">貸出不可</p>
-                    <button type="button" class="btn btn-light btn-block" data-toggle="modal" data-target="#demoNormalModal" disabled>
+                    <button type="button" class="btn btn-light btn-block" data-toggle="modal" data-target="" disabled>
                         借りる
                     </button>
                 {% endif %}
 
-                <!-- モーダルダイアログ -->
-                <div class="modal fade" id="demoNormalModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                <!-- 貸し出しモーダルダイアログ -->
+                <div class="modal fade" id="checkoutNormalModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
 
@@ -59,6 +64,37 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 返却モーダルダイアログ -->
+                <div class="modal fade" id="returnNormalModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="demoModalTitle">{{ resource.name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            {% load widget_tweaks %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <p>返却します。よろしいですか？</p>
+                                <div class="modal-body">
+                                    {% render_field form.checkout_date type="hidden" id="checkout_date" class="form-control" autofocus="" %}
+                                    {% render_field form.return_date type="hidden" id="return_date" class="form-control"%}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                                    <button type="submit" class="btn btn-primary">返却する</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

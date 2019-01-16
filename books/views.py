@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# import os
-
 # 認証ページ用
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -72,11 +70,35 @@ def detail(request, **kwargs):
             # 更新を保存
             resource.save()
 
+        elif form.data["checkout_date"] == "" and form.data["return_date"] == "":
+            # 動的なクラス読み込み
+            mod = __import__("books.models", globals(), locals(), [kwargs["resource_type"]], 0)
+            resource_class = getattr(mod, kwargs["resource_type"])
+            # そのクラスのレコードをDBから読み込み
+            resource = resource_class.objects.get(id=kwargs["resource_id"])
+            # 利用者、貸し出し日、返却予定日を更新
+            resource.checkout_date = None
+            resource.return_date = None
+            resource.username = ""
+            # 更新を保存
+            resource.save()
+        
+        else:
+            return HttpResponse("Internal Server Error.", status=500)
+
+        # import pdb; pdb.set_trace()
+
+        # アクセス者がレンタルしているか確認
+        if resource.username == request.user.username:
+            is_rentaling = True
+        else:
+            is_rentaling = False
+
         context = {
             "resource": resource,
-            "form": form
+            "form": form,
+            "is_rentaling": is_rentaling
         }
-
         return render(request, "books/detail.html", context)
 
     else:
@@ -88,10 +110,18 @@ def detail(request, **kwargs):
 
         # レンタルページ用のformを作成
         form = RentalForm()
+
+        # アクセス者がレンタルしているか確認
+        if resource.username == request.user.username:
+            is_rentaling = True
+        else:
+            is_rentaling = False
         
+        # import pdb; pdb.set_trace()
         context = {
             "resource": resource,
-            "form": form
+            "form": form,
+            "is_rentaling": is_rentaling
         }
         return render(request, "books/detail.html", context)
 
