@@ -77,7 +77,7 @@ class Resource(models.Model):
     return_date = models.DateField(blank=True, null=True)
 
 class Book(Resource):
-    pass
+    username = models.CharField(max_length=200, default="", blank=True, null=True)
 
 class Monitor(Resource):
     pass
