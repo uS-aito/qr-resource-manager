@@ -130,3 +130,6 @@ IMAGE_URL = "/images/"
 # ログイン後のリダイレクトURL
 LOGIN_REDIRECT_URL = "/resources/"
 LOGIN_URL = "/accounts/login"
+
+# ログインの有効期間
+ACCOUNT_ACTIVATION_DAYS=365
