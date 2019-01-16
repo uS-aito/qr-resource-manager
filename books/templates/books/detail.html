@@ -3,9 +3,9 @@
 {% block title %}書籍の詳細{% endblock title %}
 
 {% block content %}
-
+{% load filter %}
     <div class="page-header">
-        <h1 style="padding: 60px;">書籍詳細</h1>
+        <h1 style="padding: 60px;">{{ resource | to_class_name }}詳細</h1>
     </div>
 
     <div class="col-sm-6 mx-auto">

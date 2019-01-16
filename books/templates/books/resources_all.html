@@ -7,10 +7,10 @@
     <div class="page-header">
         <h1 style="padding: 60px;">利用可能なリソースの一覧</h1>
     </div>
-
+    {% load filter %}
     {% for resources in resources_all %}
+        <h2>{{ resources | to_member_class_name }}</h2>
         <div class="row">
-            {% load filter %}
             {% for resource in resources %}
                 <div class="col-sm-3">
                     <div class="card">

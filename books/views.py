@@ -38,13 +38,15 @@ def index(request, **kwargs):
         ## typeがdjango.db.models.base.ModelBaseのやつはmodels.Modelを継承している→リソースのクラス
         resources_all = []
         for name in dir(mod.models):
+            # Resourceは基底クラスなので無視する
+            if name=="Resource":
+                continue
             attr = getattr(mod.models, name)
             if "django.db.models.base.ModelBase" in str(type(attr)):               
                 resources_all.append(attr.objects.all().order_by('id'))
         context = {
             "resources_all": resources_all
         }
-        # import pdb; pdb.set_trace()
         return render(request, "books/resources_all.html", context)
 
 @login_required
