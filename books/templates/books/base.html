@@ -13,7 +13,7 @@
   <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/resources">Home</a>
+      <a class="navbar-brand" href="/resources">Home{% if user.is_authenticated %} ({{user.username}}){% endif %}</a>
     </div>
   </nav>  
   <div class="container">

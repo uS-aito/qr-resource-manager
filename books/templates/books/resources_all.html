@@ -10,12 +10,13 @@
 
     {% for resources in resources_all %}
         <div class="row">
+            {% load filter %}
             {% for resource in resources %}
                 <div class="col-sm-3">
                     <div class="card">
                         <img class="card-img-top" src={{ resource.image.url }} alt="resource Image">
                         <div class="card-body-mod">
-                            <a href="./detail/{{ resource.id }}"><h6 class="card-title-mod">{{ resource.name }}</h6></a>
+                            <a href="./{{ resource | to_class_name }}/detail/{{ resource.id }}"><h6 class="card-title-mod">{{ resource.name }}</h6></a>
                         </div>
                         {% if resource.checkout_date == None %}
                             <p class="available">貸出可</p>

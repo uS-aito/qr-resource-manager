@@ -1,14 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-import os
+# import os
+
+# 認証ページ用
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+# djanog rest framework用
 import django_filters
 from rest_framework import viewsets, filters
-
 from .models import Book, Monitor
 from .serializer import BookSerializer, MonitorSerializer
 
-# Create your views here.
+# リソースの一覧を表示するページ
+@login_required
 def index(request, **kwargs):
     if "resource_type" in kwargs.keys():
         # 指定されたクラスの動的な読み込み
@@ -38,8 +44,10 @@ def index(request, **kwargs):
         context = {
             "resources_all": resources_all
         }
+        # import pdb; pdb.set_trace()
         return render(request, "books/resources_all.html", context)
 
+@login_required
 def detail(request, **kwargs):
     # 動的なクラス読み込み
     mod = __import__("books.models", globals(), locals(), [kwargs["resource_type"]], 0)

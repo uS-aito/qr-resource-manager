@@ -126,3 +126,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 IMAGE_URL = "/images/"
+
+# ログイン後のリダイレクトURL
+LOGIN_REDIRECT_URL = "/resources/"
+LOGIN_URL = "/accounts/login"
