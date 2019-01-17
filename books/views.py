@@ -8,6 +8,11 @@ from django.contrib.auth.decorators import login_required
 # レンタルページ用
 from .forms import RentalForm
 
+# 個別ページ表示用
+import os
+from django.conf import settings
+from .apps import BooksConfig
+
 # djanog rest framework用
 import django_filters
 from rest_framework import viewsets, filters
@@ -117,13 +122,17 @@ def detail(request, **kwargs):
         else:
             is_rentaling = False
         
-        # import pdb; pdb.set_trace()
         context = {
             "resource": resource,
             "form": form,
             "is_rentaling": is_rentaling
         }
-        return render(request, "books/detail.html", context)
+        # 各リソース向けの個別詳細ページの存在確認
+        path = os.path.join(settings.BASE_DIR, BooksConfig.name, "templates", BooksConfig.name, kwargs["resource_type"]+"_detail.html")
+        if os.path.exists(path):
+            return render(request, "books/detail.html", context)
+        else:
+            return render(request, "books/detail.html", context)
 
 # REST Framework Viewset
 class BookViewSet(viewsets.ModelViewSet):

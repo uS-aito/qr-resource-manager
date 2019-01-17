@@ -75,9 +75,10 @@ class Resource(models.Model):
     description = models.TextField(blank=True, null=True)
     checkout_date = models.DateField(blank=True, null=True)
     return_date = models.DateField(blank=True, null=True)
+    username = models.CharField(max_length=200, default="", blank=True, null=True)
 
 class Book(Resource):
-    username = models.CharField(max_length=200, default="", blank=True, null=True)
+    pass
 
 class Monitor(Resource):
     pass

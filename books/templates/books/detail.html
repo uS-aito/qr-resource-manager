@@ -15,8 +15,8 @@
                 <h5 class="card-title-mod">{{ resource.name }}</h5>
                 <p>{{ resource.description }}</p>
                 <p>貸し出し日: {{ resource.checkout_date }}</p>
-                <p>返却予定日: {{ resource.return_date }}
-                </p>
+                <p>返却予定日: {{ resource.return_date }}</p>
+                <p>利用者: {{ resource.username }}</p>
                 {% if is_rentaling == True %}
                     <p class="unavailable">貸出不可</p>
                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#returnNormalModal">
@@ -80,10 +80,10 @@
                             {% load widget_tweaks %}
                             <form action="" method="POST">
                                 {% csrf_token %}
-                                <p>返却します。よろしいですか？</p>
                                 <div class="modal-body">
                                     {% render_field form.checkout_date type="hidden" id="checkout_date" class="form-control" autofocus="" %}
                                     {% render_field form.return_date type="hidden" id="return_date" class="form-control"%}
+                                    <p>返却します。よろしいですか？</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
